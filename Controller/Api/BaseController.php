@@ -9,7 +9,10 @@ class BaseController
      */
     public function __call($name, $arguments)
     {
-        $this->sendOutput('', array('HTTP/1.1 404 Not Found'));
+        // $this->sendOutput('', array('HTTP/1.1 404 Not Found'));
+        $this->sendOutput(json_encode(array('error' => 'Action Not Found!')), 
+                array('Content-Type: application/json', 'HTTP/1.1 404 Not Found')
+        );
         // throw the HTTP/1.1 404 Not Found error when someone tries to call a method which we haven’t implemented
     }
  
@@ -26,6 +29,7 @@ class BaseController
         $uri = explode( '/', $uri );
  
         return $uri;
+        // return array(4) { [0]=> string(0) "" [1]=> string(9) "index.php" [2]=> string(4) "user" [3]=> string(4) "list" } 
     }
  
     /**
@@ -33,7 +37,7 @@ class BaseController
      * 
      * @return array
      */
-    protected function getQueryStringParams()
+    public function getQueryStringParams()
     {
         return parse_str($_SERVER['QUERY_STRING'], $query);
         // convert string to variable => name=ahmad&id=2
