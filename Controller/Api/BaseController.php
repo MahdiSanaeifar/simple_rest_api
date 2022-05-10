@@ -39,7 +39,8 @@ class BaseController
      */
     public function getQueryStringParams()
     {
-        return parse_str($_SERVER['QUERY_STRING'], $query);
+        return $_REQUEST;
+        // return parse_str($_SERVER['QUERY_STRING'], $query);
         // convert string to variable => name=ahmad&id=2
         // returns an array of query string variables that are passed along with the incoming request.
     }
